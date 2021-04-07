@@ -1,9 +1,7 @@
 import torch
 import pytorch_lightning as pl 
 from torch import optim, nn
-from pytorch_lightning import Trainer
-from pytorch_lightning.callbacks import EarlyStopping
-from pytorch_lightning.callbacks import ModelCheckpoint
+
 
 class CycleGAN_LightningSystem(pl.LightningModule):
     def __init__(self, G_basestyle, G_stylebase, D_base, D_style, lr, transform, reconstr_w=10, id_w=2):

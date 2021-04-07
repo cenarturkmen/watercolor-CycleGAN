@@ -29,9 +29,6 @@ class Upsample(nn.Module):
 
         return x
 
-
-
-
 class Downsample(nn.Module):
     """
     The normal convolution (without stride) operation gives the same 
