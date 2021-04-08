@@ -2,7 +2,9 @@ from CycleGAN_ls import CycleGAN_LightningSystem
 from dataModule import ImageTransform, WatercolorDataset, WatercolorDataModule
 from discriminator import CycleGAN_Discriminator
 from generator import CycleGAN_Unet_Generator
-import os, glob, random
+import os
+import glob
+import  random
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,7 +15,6 @@ from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
 
-
 def seed_everything(seed):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
@@ -22,6 +23,7 @@ def seed_everything(seed):
     torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = True
+
 
 # Config  -----------------------------------------------------------------
 data_dir = '/content/drive/MyDrive/data/'
@@ -58,7 +60,8 @@ trainer = Trainer(
     gpus=1,
     checkpoint_callback=checkpoint_callback,
     reload_dataloaders_every_epoch=True,
-    num_sanity_val_steps=0,  # Skip Sanity Check
+    num_sanity_val_steps=0,
+    resume_from_checkpoint='/content/drive/MyDrive/checkpoint/epoch=279-step=100799.ckpt'  # Skip Sanity Check
 )
 
 # Train
