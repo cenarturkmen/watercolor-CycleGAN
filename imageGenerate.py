@@ -1,3 +1,4 @@
+####### not so good right now, will be fixed ##########
 from CycleGAN_ls import CycleGAN_LightningSystem
 from dataModule import ImageTransform, WatercolorDataset, WatercolorDataModule
 from discriminator import CycleGAN_Discriminator
@@ -10,10 +11,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image
 import torch
-
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
+
+c = "/home/caner/Downloads/epoch=349-step=125999.ckpt"
 
 def seed_everything(seed):
     random.seed(seed)
@@ -26,14 +28,14 @@ def seed_everything(seed):
 
 
 # Config  -----------------------------------------------------------------
-data_dir = '/content/drive/MyDrive/data/'
+data_dir = '/home/caner/Desktop/watercolor-CycleGAN/data/'
 transform = ImageTransform(img_size=256)
 batch_size = 1
 lr = {
     'G': 0.0002,
     'D': 0.0002
 }
-epoch = 160
+epoch = 400
 seed = 42
 reconstr_w = 10
 id_w = 5
@@ -47,24 +49,29 @@ G_stylebase = CycleGAN_Unet_Generator()
 D_base = CycleGAN_Discriminator()
 D_style = CycleGAN_Discriminator()
 
-# LightningModule  --------------------------------------------------------------
 model = CycleGAN_LightningSystem(G_basestyle, G_stylebase, D_base, D_style, 
                                  lr, transform, reconstr_w, id_w)
-# Callback
-checkpoint_callback = ModelCheckpoint(dirpath="/content/drive/MyDrive/checkpoint",
-                                      period=10)
-# Trainer  --------------------------------------------------------------
-trainer = Trainer(
-    logger=False,
-    max_epochs=epoch,
+trainer = Trainer(logger=False,
+    max_epochs=350, # I couldn't implement the pl.load_from_checkpoint so I went the log way 
     gpus=1,
-    checkpoint_callback=checkpoint_callback,
     reload_dataloaders_every_epoch=True,
     num_sanity_val_steps=0,
-    resume_from_checkpoint='/content/drive/MyDrive/checkpoint/epoch=279-step=100799.ckpt' 
-)
-
-# Train ------------------------------------------------------------------------
+    resume_from_checkpoint=c)
 trainer.fit(model, datamodule=dm)
+# automatically restores model, epoch, step, LR schedulers, apex, etc...
 
+#generate image part
+net = model.G_basestyle
+photo_path = "/home/caner/Desktop/watercolor-CycleGAN/5f477a5c46.jpg"
+img = transform(Image.open(photo_path), phase='test')
+device = torch.device("cpu")
+print(device)
+img = img.to(device)
+gen_img = net(img.unsqueeze(0))[0]
+gen_img = gen_img * 0.5 + 0.5
+gen_img = gen_img * 255
+gen_img = gen_img.detach().cpu().numpy().astype(np.uint8)
+gen_img = np.transpose(gen_img, [1,2,0])
+gen_img = Image.fromarray(gen_img)
+gen_img.save("kek11w.png")
 

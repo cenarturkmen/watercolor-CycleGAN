@@ -1,5 +1,5 @@
 from torch import nn
-
+import torch 
 class Upsample(nn.Module):
     """
     The transpose convolution is reverse of the convolution operation. 

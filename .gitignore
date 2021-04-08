@@ -4,3 +4,10 @@ test.py
 __pycache__/
 
 *.pyc
+<<<<<<< Updated upstream
+=======
+
+data/photo_jpg_less/
+
+data/watercolor_jpg/
+>>>>>>> Stashed changes
