@@ -30,8 +30,8 @@ data_dir = "/content/drive/MyDrive/data/"
 transform = ImageTransform(img_size=256)
 batch_size = 1
 lr = {
-    'G': 0.0002,
-    'D': 0.0002
+    "G": 0.0002,
+    "D": 0.0002
 }
 epoch = 160
 seed = 42
@@ -61,7 +61,7 @@ trainer = Trainer(
     checkpoint_callback=checkpoint_callback,
     reload_dataloaders_every_epoch=True,
     num_sanity_val_steps=0,
-    # resume_from_checkpoint='/content/drive/MyDrive/checkpoint/epoch=279-step=100799.ckpt' 
+    # resume_from_checkpoint="/content/drive/MyDrive/checkpoint/epoch=279-step=100799.ckpt" 
 )
 
 # Train ------------------------------------------------------------------------
