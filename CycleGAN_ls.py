@@ -28,10 +28,10 @@ class CycleGAN_LightningSystem(pl.LightningModule):
         self.identity = []
 
     def configure_optimizers(self):
-        self.g_basestyle_optimizer = optim.Adam(self.G_basestyle.parameters(), lr=self.lr['G'], betas=(0.5, 0.999))
-        self.g_stylebase_optimizer = optim.Adam(self.G_stylebase.parameters(), lr=self.lr['G'], betas=(0.5, 0.999))
-        self.d_base_optimizer = optim.Adam(self.D_base.parameters(), lr=self.lr['D'], betas=(0.5, 0.999))
-        self.d_style_optimizer = optim.Adam(self.D_style.parameters(), lr=self.lr['D'], betas=(0.5, 0.999))
+        self.g_basestyle_optimizer = optim.Adam(self.G_basestyle.parameters(), lr=self.lr["G"], betas=(0.5, 0.999))
+        self.g_stylebase_optimizer = optim.Adam(self.G_stylebase.parameters(), lr=self.lr["G"], betas=(0.5, 0.999))
+        self.d_base_optimizer = optim.Adam(self.D_base.parameters(), lr=self.lr["D"], betas=(0.5, 0.999))
+        self.d_style_optimizer = optim.Adam(self.D_style.parameters(), lr=self.lr["D"], betas=(0.5, 0.999))
 
         return [self.g_basestyle_optimizer, self.g_stylebase_optimizer, self.d_base_optimizer, self.d_style_optimizer], []
 
@@ -63,7 +63,7 @@ class CycleGAN_LightningSystem(pl.LightningModule):
             # Loss Weight
             G_loss = val_loss + self.reconstr_w * reconstr_loss + self.id_w * id_loss
 
-            return {'loss': G_loss, 'validity': val_loss, 'reconstr': reconstr_loss, 'identity': id_loss}
+            return {"loss": G_loss, "validity": val_loss, "reconstr": reconstr_loss, "identity": id_loss}
 
         # Train Discriminator
         elif optimizer_idx == 2 or optimizer_idx == 3:
@@ -81,17 +81,17 @@ class CycleGAN_LightningSystem(pl.LightningModule):
             # Count up
             self.cnt_train_step += 1
 
-            return {'loss': D_loss}
+            return {"loss": D_loss}
 
     def training_epoch_end(self, outputs):
         self.step += 1
         
-        avg_loss = sum([torch.stack([x['loss'] for x in outputs[i]]).mean().item() / 4 for i in range(4)])
-        G_mean_loss = sum([torch.stack([x['loss'] for x in outputs[i]]).mean().item() / 2 for i in [0, 1]])
-        D_mean_loss = sum([torch.stack([x['loss'] for x in outputs[i]]).mean().item() / 2 for i in [2, 3]])
-        validity = sum([torch.stack([x['validity'] for x in outputs[i]]).mean().item() / 2 for i in [0, 1]])
-        reconstr = sum([torch.stack([x['reconstr'] for x in outputs[i]]).mean().item() / 2 for i in [0, 1]])
-        identity = sum([torch.stack([x['identity'] for x in outputs[i]]).mean().item() / 2 for i in [0, 1]])
+        avg_loss = sum([torch.stack([x["loss"] for x in outputs[i]]).mean().item() / 4 for i in range(4)])
+        G_mean_loss = sum([torch.stack([x["loss"] for x in outputs[i]]).mean().item() / 2 for i in [0, 1]])
+        D_mean_loss = sum([torch.stack([x["loss"] for x in outputs[i]]).mean().item() / 2 for i in [2, 3]])
+        validity = sum([torch.stack([x["validity"] for x in outputs[i]]).mean().item() / 2 for i in [0, 1]])
+        reconstr = sum([torch.stack([x["reconstr"] for x in outputs[i]]).mean().item() / 2 for i in [0, 1]])
+        identity = sum([torch.stack([x["identity"] for x in outputs[i]]).mean().item() / 2 for i in [0, 1]])
             
         self.losses.append(avg_loss)
         self.G_mean_losses.append(G_mean_loss)
@@ -102,8 +102,8 @@ class CycleGAN_LightningSystem(pl.LightningModule):
         
         if self.step % 10 == 0:
             # Display Model Output
-            target_img_paths = glob.glob('/content/drive/MyDrive/data/photo_jpg_less/*.jpg')[:5]
-            target_imgs = [self.transform(Image.open(path), phase='test') for path in target_img_paths]
+            target_img_paths = glob.glob("/content/drive/MyDrive/data/photo_jpg_less/*.jpg")[:5]
+            target_imgs = [self.transform(Image.open(path), phase="test") for path in target_img_paths]
             target_imgs = torch.stack(target_imgs, dim=0)
             target_imgs = target_imgs.cuda()
 
@@ -122,8 +122,8 @@ class CycleGAN_LightningSystem(pl.LightningModule):
             # Visualize
             fig = plt.figure(figsize=(18, 8))
             plt.imshow(joined_images)
-            plt.axis('off')
-            plt.title(f'Epoch {self.step}')
+            plt.axis("off")
+            plt.title(f"Epoch {self.step}")
             plt.show()
             plt.clf()
             plt.close()
