@@ -15,18 +15,18 @@ from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
 
+# Seed -------------------------------------------------------------------
 def seed_everything(seed):
     random.seed(seed)
-    os.environ['PYTHONHASHSEED'] = str(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = True
 
-
 # Config  -----------------------------------------------------------------
-data_dir = '/content/drive/MyDrive/data/'
+data_dir = "/content/drive/MyDrive/data/"
 transform = ImageTransform(img_size=256)
 batch_size = 1
 lr = {
