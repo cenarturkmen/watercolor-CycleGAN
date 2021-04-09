@@ -19,7 +19,7 @@ c = "/home/caner/Downloads/epoch=349-step=125999.ckpt"
 
 def seed_everything(seed):
     random.seed(seed)
-    os.environ['PYTHONHASHSEED'] = str(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
@@ -28,12 +28,12 @@ def seed_everything(seed):
 
 
 # Config  -----------------------------------------------------------------
-data_dir = '/home/caner/Desktop/watercolor-CycleGAN/data/'
+data_dir = "/home/caner/Desktop/watercolor-CycleGAN/data/"
 transform = ImageTransform(img_size=256)
 batch_size = 1
 lr = {
-    'G': 0.0002,
-    'D': 0.0002
+    "G": 0.0002,
+    "D": 0.0002
 }
 epoch = 400
 seed = 42
@@ -52,7 +52,7 @@ D_style = CycleGAN_Discriminator()
 model = CycleGAN_LightningSystem(G_basestyle, G_stylebase, D_base, D_style, 
                                  lr, transform, reconstr_w, id_w)
 trainer = Trainer(logger=False,
-    max_epochs=350, # I couldn't implement the pl.load_from_checkpoint so I went the log way 
+    max_epochs=350, # I couldn"t implement the pl.load_from_checkpoint so I went the log way 
     gpus=1,
     reload_dataloaders_every_epoch=True,
     num_sanity_val_steps=0,
@@ -63,7 +63,7 @@ trainer.fit(model, datamodule=dm)
 #generate image part
 net = model.G_basestyle
 photo_path = "/home/caner/Desktop/watercolor-CycleGAN/5f477a5c46.jpg"
-img = transform(Image.open(photo_path), phase='test')
+img = transform(Image.open(photo_path), phase="test")
 device = torch.device("cpu")
 print(device)
 img = img.to(device)
