@@ -21,14 +21,14 @@ class ImageTransform:
                 transforms.Normalize(mean=[0.5], std=[0.5])
             ])}
 
-    def __call__(self, img, phase='train'):
+    def __call__(self, img, phase="train"):
         img = self.transform[phase](img)
 
         return img
 
 # Define dataset
 class WatercolorDataset(Dataset):
-    def __init__(self, base_img_paths, style_img_paths,  transform, phase='train'):
+    def __init__(self, base_img_paths, style_img_paths,  transform, phase="train"):
         self.base_img_paths = base_img_paths
         self.style_img_paths = style_img_paths
         self.transform = transform
@@ -50,7 +50,7 @@ class WatercolorDataset(Dataset):
 
 # Define data module 
 class WatercolorDataModule(pl.LightningDataModule):
-    def __init__(self, data_dir, transform, batch_size, phase='train', seed=0):
+    def __init__(self, data_dir, transform, batch_size, phase="train", seed=0):
         super(WatercolorDataModule, self).__init__()
         self.data_dir = data_dir
         self.transform = transform
@@ -59,8 +59,8 @@ class WatercolorDataModule(pl.LightningDataModule):
         self.seed = seed
 
     def prepare_data(self):
-        self.base_img_paths = glob.glob(os.path.join(self.data_dir, 'photo_jpg_less/', '*.jpg'))
-        self.style_img_paths = glob.glob(os.path.join(self.data_dir, 'watercolor_jpg/', '*.jpg'))
+        self.base_img_paths = glob.glob(os.path.join(self.data_dir, "photo_jpg_less/", "*.jpg"))
+        self.style_img_paths = glob.glob(os.path.join(self.data_dir, "watercolor_jpg/", "*.jpg"))
 
     def train_dataloader(self):
         random.seed()
