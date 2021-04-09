@@ -10,7 +10,7 @@
 
 ![01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/04.jpg) ![g01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/g04.jpg)
 
-![01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/05.jpg) ![g01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/g06.jpg)
+![01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/05.jpg) ![g01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/g05.jpg)
 
 ![01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/06.jpg) ![g01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/g06.jpg)
 
