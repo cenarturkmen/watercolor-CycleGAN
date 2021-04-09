@@ -15,8 +15,10 @@ from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
 
+#  this is my local checkpoint path
 c = "/home/caner/Downloads/epoch=349-step=125999.ckpt"
-
+# THIS PART SAME AS THE train.py,
+########################################################################################################
 def seed_everything(seed):
     random.seed(seed)
     os.environ["PYTHONHASHSEED"] = str(seed)
@@ -25,7 +27,6 @@ def seed_everything(seed):
     torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = True
-
 
 # Config  -----------------------------------------------------------------
 data_dir = "/home/caner/Desktop/watercolor-CycleGAN/data/"
@@ -58,20 +59,23 @@ trainer = Trainer(logger=False,
     num_sanity_val_steps=0,
     resume_from_checkpoint=c)
 trainer.fit(model, datamodule=dm)
-# automatically restores model, epoch, step, LR schedulers, apex, etc...
-
+##################################################################################################3
 #generate image part
+
 net = model.G_basestyle
-photo_path = "/home/caner/Desktop/watercolor-CycleGAN/5f477a5c46.jpg"
-img = transform(Image.open(photo_path), phase="test")
-device = torch.device("cpu")
-print(device)
-img = img.to(device)
-gen_img = net(img.unsqueeze(0))[0]
-gen_img = gen_img * 0.5 + 0.5
-gen_img = gen_img * 255
-gen_img = gen_img.detach().cpu().numpy().astype(np.uint8)
-gen_img = np.transpose(gen_img, [1,2,0])
-gen_img = Image.fromarray(gen_img)
-gen_img.save("kek11w.png")
+photo_path = "/home/caner/Desktop/predict/"
+photos = os.listdir(photo_path)
+for photo in photos:
+    img = transform(Image.open(photo_path + photo), phase="test")
+    device = torch.device("cpu")
+    print(device)
+    img = img.to(device)
+    gen_img = net(img.unsqueeze(0))[0]
+    gen_img = gen_img * 0.5 + 0.5
+    gen_img = gen_img * 255
+    gen_img = gen_img.detach().cpu().numpy().astype(np.uint8)
+    gen_img = np.transpose(gen_img, [1,2,0])
+    gen_img = Image.fromarray(gen_img)
+    gen_img.save("g"+ photo)
+
 
