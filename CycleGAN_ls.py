@@ -102,7 +102,7 @@ class CycleGAN_LightningSystem(pl.LightningModule):
         
         if self.step % 10 == 0:
             # Display Model Output
-            target_img_paths = glob.glob("/content/drive/MyDrive/data/photo_jpg_less/*.jpg")[:5]
+            target_img_paths = glob.glob("DATA/photo_jpg_less/*.jpg")[:4]
             target_imgs = [self.transform(Image.open(path), phase="test") for path in target_img_paths]
             target_imgs = torch.stack(target_imgs, dim=0)
             target_imgs = target_imgs.cuda()
