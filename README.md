@@ -18,7 +18,10 @@ pip3 install numpy
 pip3 install pandas
 pip3 install matplotlib
 ```
+## Checkpoint
+I couldn't upload the checkpoint to github cause the size is so big and my internet is to poor.
 
+Google Drive link for [550 epochs](https://drive.google.com/file/d/1iFerBR4TDIODL-Kz8lvHdYCmpfdskBD_/view?usp=sharing) 
 ## Latest generated images(Original - 350 epochs - 550 epochs)
 Probably need more epoch
 
