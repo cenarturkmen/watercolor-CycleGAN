@@ -19,7 +19,7 @@ pip3 install pandas
 pip3 install matplotlib
 ```
 
-## Latest generated images(350 epochs)
+## Latest generated images(Original - 350 epochs - 550 epochs)
 Probably need more epoch
 
 ![01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/01.jpg) ![g01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/g01.jpg) ![gn01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/gn01.jpg)
