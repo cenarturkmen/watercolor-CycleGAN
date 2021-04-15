@@ -16,7 +16,7 @@ from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
 
 #  this is my local checkpoint path
-c = "/home/caner/Downloads/epoch=349-step=125999.ckpt"
+c = "checkpoints/epoch=549-step=197999.ckpt"
 # THIS PART SAME AS THE train.py,
 ########################################################################################################
 def seed_everything(seed):
@@ -29,7 +29,7 @@ def seed_everything(seed):
     torch.backends.cudnn.benchmark = True
 
 # Config  -----------------------------------------------------------------
-data_dir = "/home/caner/Desktop/watercolor-CycleGAN/data/"
+data_dir = "DATA/"
 transform = ImageTransform(img_size=256)
 batch_size = 1
 lr = {
@@ -53,7 +53,7 @@ D_style = CycleGAN_Discriminator()
 model = CycleGAN_LightningSystem(G_basestyle, G_stylebase, D_base, D_style, 
                                  lr, transform, reconstr_w, id_w)
 trainer = Trainer(logger=False,
-    max_epochs=350, # I couldn"t implement the pl.load_from_checkpoint so I went the log way 
+    max_epochs=550, # I couldn"t implement the pl.load_from_checkpoint so I went the log way 
     gpus=1,
     reload_dataloaders_every_epoch=True,
     num_sanity_val_steps=0,
@@ -76,6 +76,6 @@ for photo in photos:
     gen_img = gen_img.detach().cpu().numpy().astype(np.uint8)
     gen_img = np.transpose(gen_img, [1,2,0])
     gen_img = Image.fromarray(gen_img)
-    gen_img.save("g"+ photo)
+    gen_img.save("gn"+ photo)
 
 
