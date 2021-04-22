@@ -23,7 +23,7 @@ I couldn't upload the checkpoint to github cause the size is so big and my inter
 
 Google Drive link for [550 epochs](https://drive.google.com/file/d/1iFerBR4TDIODL-Kz8lvHdYCmpfdskBD_/view?usp=sharing) 
 ## Latest generated images(Original - 350 epochs - 550 epochs)
-Probably need more epoch
+Probably need more epoch or more data, maybe higher learning rate.
 
 ![01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/01.jpg) ![g01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/g01.jpg) ![gn01](https://raw.githubusercontent.com/cenarturkmen/watercolor-CycleGAN/main/readme/predict/gn01.jpg)
 
